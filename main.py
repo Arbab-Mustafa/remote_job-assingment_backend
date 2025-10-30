@@ -28,7 +28,7 @@ app = FastAPI(
 )
 
 # Configure CORS to allow frontend connections
-default_origins = "https://remote-job-assingment-frontend.vercel.app/, http://localhost:3000"
+default_origins = "https://remote-job-assingment-frontend.vercel.app"
 env_origins = os.getenv("ALLOWED_ORIGINS", default_origins)
 allowed_origins = [origin.strip() for origin in env_origins.split(",") if origin.strip()]
 
