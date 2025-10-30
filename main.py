@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from typing import List, Dict, Any
 import json
 import logging
+import os
 
 # Configure logging
 logging.basicConfig(
@@ -27,9 +28,13 @@ app = FastAPI(
 )
 
 # Configure CORS to allow frontend connections
+default_origins = "https://remote-job-assingment-frontend.vercel.app/, http://localhost:3000"
+env_origins = os.getenv("ALLOWED_ORIGINS", default_origins)
+allowed_origins = [origin.strip() for origin in env_origins.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React default port
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
